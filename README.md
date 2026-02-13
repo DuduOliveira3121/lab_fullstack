@@ -11,10 +11,6 @@
 
 1. Abra um terminal PowerShell e entre na pasta do projeto (onde está `app.py`):
 
-```powershell
-cd "C:\___________Pessoal\___________Impacta\4 SEMESTRE\FrameWorks_FullStack\lab_fullstack"
-```
-
 ## Criar e ativar um ambiente virtual (Windows PowerShell)
 
 1. Criar o ambiente virtual:
