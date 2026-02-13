@@ -1,37 +1,20 @@
-"""Serviço simples de usuário em memória.
+from model.user import User
 
-Fornece funções: create_user, list_users, get_user_by_cpf, delete_user
-Armazenamento: lista de dicionários em memória.
-"""
+class UserService:
+    def __init__(self):
+        self.model = User()
 
-users = []
+    def create_user(self, data):
+        cpf = data.get("cpf")
+        if self.get_user_by_cpf(cpf) is not None:
+            return None
+        return self.model.create_user(data["nome"], data["email"], data["senha"], cpf)
 
-def create_user(data):
-    cpf = data.get("cpf")
-    if get_user_by_cpf(cpf) is not None:
-        return None
+    def list_users(self):
+        return self.model.get_all_user()
 
-    user = {
-        "nome": data.get("nome"),
-        "email": data.get("email"),
-        "senha": data.get("senha"),
-        "cpf": cpf
-    }
-    users.append(user)
-    return user
+    def get_user_by_cpf(self, cpf):
+        return self.model.get_user_by_cpf(cpf)
 
-def list_users():
-    return users
-
-def get_user_by_cpf(cpf):
-    for u in users:
-        if u.get("cpf") == cpf:
-            return u
-    return None
-
-def delete_user(cpf):
-    for u in list(users):
-        if u.get("cpf") == cpf:
-            users.remove(u)
-            return True
-    return False
+    def delete_user(self, cpf):
+        return self.model.delete_user_by_cpf(cpf)

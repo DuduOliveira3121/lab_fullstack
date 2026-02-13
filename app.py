@@ -4,7 +4,6 @@ from model.user import validate_user_data
 
 app = Flask(__name__)
 
-# instância do service (usa o model internamente)
 service = UserService()
 
 
