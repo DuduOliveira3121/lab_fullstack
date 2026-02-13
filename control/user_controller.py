@@ -1,6 +1,9 @@
-from service.user_service import UserService
-class UserController:
+from model.user import User
 
-    def get_cep_by_cep(cep):
-        user_service = UserService
-        return user_service.get_cep_by_cep()
+
+class UserController:
+    def __init__(self):
+        # Mantém apenas um wrapper simples para o model
+        self.user_model = User()
+
+    # Métodos utilitários podem ser adicionados aqui se necessário

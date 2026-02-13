@@ -1,79 +1,74 @@
 class User:
-    def get_ceps():
-        return [
+    def __init__(self):
+        self._usuarios = [
+            
     {
-        "cep": "01001-000",
-        "logradouro": "Praça da Sé",
-        "complemento": "lado ímpar",
-        "unidade": "",
-        "bairro": "Sé",
-        "localidade": "São Paulo",
-        "uf": "SP",
-        "estado": "São Paulo",
-        "regiao": "Sudeste",
-        "ibge": "3550308",
-        "gia": "1004",
-        "ddd": "11",
-        "siafi": "7107"
+        "nome": "Ana Beatriz Souza",
+        "email": "ana.beatriz@exemplo.com.br",
+        "senha": "1234",
+        "cpf": "123.456.789-00"
+    }, 
+    {
+        "nome": "Carlos Eduardo Lima",
+        "email": "cadu.lima@provedor.net",
+        "senha": "5678",
+        "cpf": "234.567.890-11"
     },
     {
-        "cep": "20040-002",
-        "logradouro": "Avenida Rio Branco",
-        "complemento": "de 1 a 109 - lado ímpar",
-        "unidade": "",
-        "bairro": "Centro",
-        "localidade": "Rio de Janeiro",
-        "uf": "RJ",
-        "estado": "Rio de Janeiro",
-        "regiao": "Sudeste",
-        "ibge": "3304557",
-        "gia": "",
-        "ddd": "21",
-        "siafi": "6001"
+        "nome": "Maria Neves",
+        "email": "mari.neves@webmail.com",
+        "senha": "9101112",
+        "cpf": "345.678.901-22"
     },
     {
-        "cep": "70002-900",
-        "logradouro": "Esplanada dos Ministérios",
-        "complemento": "Ministério da Justiça",
-        "unidade": "",
-        "bairro": "Zona Cívico-Administrativa",
-        "localidade": "Brasília",
-        "uf": "DF",
-        "estado": "Distrito Federal",
-        "regiao": "Centro-Oeste",
-        "ibge": "5300108",
-        "gia": "",
-        "ddd": "61",
-        "siafi": "9701"
+        "nome": "Ricardo Oliveira",
+        "email": "ricardo.oliveira@empresa.com",
+        "senha": "13141516",
+        "cpf": "456.789.012-33"
     },
     {
-        "cep": "30140-010",
-        "logradouro": "Praça da Liberdade",
-        "complemento": "",
-        "unidade": "",
-        "bairro": "Funcionários",
-        "localidade": "Belo Horizonte",
-        "uf": "MG",
-        "estado": "Minas Gerais",
-        "regiao": "Sudeste",
-        "ibge": "3106200",
-        "gia": "",
-        "ddd": "31",
-        "siafi": "4123"
-    },
-    {
-        "cep": "90010-001",
-        "logradouro": "Rua dos Andradas",
-        "complemento": "até 485 - lado ímpar",
-        "unidade": "",
-        "bairro": "Centro Histórico",
-        "localidade": "Porto Alegre",
-        "uf": "RS",
-        "estado": "Rio Grande do Sul",
-        "regiao": "Sul",
-        "ibge": "4314902",
-        "gia": "",
-        "ddd": "51",
-        "siafi": "8801"
+        "nome": "Fernanda Montenegro Silva",
+        "email": "fernanda.ms@exemplo.org",
+        "senha": "17181920",
+        "cpf": "567.890.123-44"
     }
-]
+        ]
+
+    def create_user(self, nome, email, senha, cpf):
+        user = {"nome": nome, "email": email, "senha": senha, "cpf": cpf}
+        self._usuarios.append(user)
+        return user
+
+    def get_user_by_cpf(self, cpf):
+        for u in self._usuarios:
+            if (u["cpf"] == cpf):
+                return u
+    
+    def get_all_user(self):
+        return self._usuarios
+
+    def delete_user_by_cpf(self, cpf):
+        for us in self._usuarios:
+            if (us["cpf"] == cpf):
+                self._usuarios.remove(us)
+                return True
+
+
+def validate_user_data(data):
+    if not isinstance(data, dict):
+        return False, "Dados devem ser um objeto JSON"
+
+    campos_obrigatorios = ["nome", "email", "senha", "cpf"]
+    for campo in campos_obrigatorios:
+        if campo not in data or not str(data.get(campo)).strip():
+            return False, f"Campo obrigatório ausente ou vazio: {campo}"
+
+    email = data.get("email", "")
+    if "@" not in email:
+        return False, "Email inválido"
+
+    cpf = str(data.get("cpf", "")).strip()
+    if not cpf:
+        return False, "CPF inválido"
+
+    return True, None
